@@ -1,0 +1,101 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+      .bloque2:hover {
+        background-color: lightgreen;
+      }
+    </style>
+  </head>
+  <body>
+    <center>
+      <img src="https://www.shutterstock.com/image-photo/spanish-omelette-sandwich-260nw-1063723148.jpg" width="400" height="" />
+    </center>
+
+    <div class="bloque1" onmouseover="mostrarFecha()">
+      <h1>Título</h1>
+      <h2>Seccion 1</h2>
+      <p>El procesador Motorola MC68012 es un microprocesador de 16/32 bits de los primeros años de la década de los 80. Siendo el primer procesador "puro" de 32 bits en el mercado</p>
+    </div>
+
+    <div class="bloque2" onmouseover="cambiarColorFondo(true)" onmouseout="cambiarColorFondo(false)">
+      <h2>Seccion 2</h2>
+      <section>
+        <p>Los buques de esta clase, tenían una eslora de 115,7 m, una manga 19,5 m, la cual se veía incrementada hasta los 19,74 m al utilizar las redes antitorpedos, y un calado de 7,6 m a proa y 7,9 m a popa. Tenían un desplazamiento de diseño de 10 013 t, que subían hasta las 10 670 t a plena carga.</p>
+        <ol>
+          <li type="disc">Hola mundo</li>
+          <li type="disc">Adiosmundo</li>
+          <li type="disc">aloha.</li>
+        </ol>
+      </section>
+
+      <h2>Seccion 3</h2>
+      <section>
+        <p>Trumpler 16 es un cúmulo abierto masivo que alberga algunas de las estrellas más luminosas y masivas de la Vía Láctea. Está situado dentro de la nebulosa de la quilla, ubicado aproximadamente a 9,270 años luz de la Tierra.</p>
+        <p><a href="https://colegioleones.es/">Enlace 1</a>.</p>
+        <p><a href="https://aula01.colegioleones.com/login/index.php">Enlace 2</a></p>
+        <p><a href="https://login02.globaleduca.es/leones01?service=https://psp.globaleduca.es">Enlace 3</a></p>
+      </section>
+    </div>
+
+    <center class="center">
+      <b>Copyright 2023</b>
+       <p>Tu ubicación es: <span id="latitude">0.00</span>° latitud, <span id="longitude">0.00</span>° longitud.</p> 
+    
+    <center>
+      <button onclick="mostrarCreditos()">Créditos</button>
+      <button onclick="ocultarMostrar()">Ocultar/ Mostrar primera sección</button>
+      <button onclick="cambiarColor()">Cambiar color de fondo</button>
+    </center>
+
+<center>
+  <button onclick="obtenerUbicacion()">Obtener Ubicación</button>
+</center>
+
+<div id="mapa">
+  
+</div><script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+  function obtenerUbicacion() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      mostrarCoordenadas(position.coords.latitude, position.coords.longitude);
+      mostrarMapa(position.coords.latitude, position.coords.longitude);
+    });
+  }
+
+  function mostrarCoordenadas(latitud, longitud) {
+    var latitudSpan = document.getElementById("latitude");
+    var longitudSpan = document.getElementById("longitude");
+
+    latitudSpan.textContent = latitud.toFixed(2);
+    longitudSpan.textContent = longitud.toFixed(2);
+  }
+
+  function mostrarMapa(latitud, longitud) {
+    var mapaExistente = document.getElementById("mapa");
+    if (mapaExistente) {
+      mapaExistente.remove();
+    }
+
+    var mapa = document.createElement("div");
+    mapa.id = "mapa";
+    mapa.style.width = "100%";
+    mapa.style.height = "400px";
+    document.body.appendChild(mapa);
+
+    var map = L.map("mapa").setView([latitud, longitud], 13);
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    L.marker([latitud, longitud]).addTo(map);
+  }
+</script>
+
+<div id="mapa">
+  
+</div>
+
+  </body>
+</html>
